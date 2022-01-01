@@ -65,37 +65,69 @@
 
 // go into the DOM and continue searching until finding the form with the id task-form
 // and call it formEl. This is the document object representation of the form element
-var formEl = document.querySelector("#task-form");
+// var formEl = document.querySelector("#task-form");
 
 // go into the DOM and continue searching until finding the ul
 // with the id #tasks-to-do and assign it tasksToDoEl (the document object representation 
-// of the ul unordered list element)
+// // of the ul unordered list element)
+// var tasksToDoEl = document.querySelector("#tasks-to-do");
+
+// // a function that creates a new task item, styles the new task item, adds the text,
+// // and appends this element to the task list.
+// var createTaskHandler = function(event){
+//     // method that instructs the browser to not carry out its default behavior.
+//     // we don't want our page to refresh everytime the form submit button is pressed
+//     event.preventDefault();
+//     // we use square brackets [ ] in a selector to select and HTML elemennt by one
+//     // of its attributes. here, we're selecting the <input> element on the page that has a 
+//     // name attribute set to a value of "task-name"
+//     var taskNameInput = document.querySelector("input[name='task-name']");
+//     // create a DOM element object that is a list item and name it listItemEl
+//     var listItemEl = document.createElement("li");
+//     // use the className property to dynamically style the list items with the task-item class
+//     listItemEl.className = "task-item";
+//     // // use the textContent property to set the text for the list items to "this is a new task"
+//     // // listItemEl.textContent = "This is a new task.";
+//     // get the task name we just stored in taskNameInput and add it to the listItemEl variable
+//     // Now we can see whatever we entered into the form appear as a task in the list!
+//     listItemEl.textContent = taskNameInput;
+//     // appends (adds something) the task list item <li> as a child to the task list <li>
+//     tasksToDoEl.appendChild(listItemEl);
+//   };
+  
+//   // on a button click, create a task. 
+//   // buttonEl.addEventListener("click", createTaskHandler);
+
+//   // instead of click used for buttons, we will use submit used for forms. 
+//   // the submit listener listens for 2 events within the form: (1) when a 
+//   // user clicks a button element with a type attribut that has a value of "submit"
+//   // like the button we currently have in the form (2) When a user presses Enter on their 
+//   // keyboard
+//   formEl.addEventListener("submit", createTaskHandler);
+
+
+var formEl = document.querySelector("#task-form");
 var tasksToDoEl = document.querySelector("#tasks-to-do");
 
-// a function that creates a new task item, styles the new task item, adds the text,
-// and appends this element to the task list.
-var createTaskHandler = function(event){
-    // method that instructs the browser to not carry out its default behavior.
-    // we don't want our page to refresh everytime the form submit button is pressed
-    event.preventDefault();
-    // create a DOM element object that is a list item and name it listItemEl
-    var listItemEl = document.createElement("li");
-    // use the className property to dynamically style the list items with the task-item class
-    listItemEl.className = "task-item";
-    // use the textContent property to set the text for the list items to "this is a new task"
-    listItemEl.textContent = "This is a new task.";
-    // appends (adds something) the task list item <li> as a child to the task list <li>
-    tasksToDoEl.appendChild(listItemEl);
-  };
-  
-  // on a button click, create a task. 
-  // buttonEl.addEventListener("click", createTaskHandler);
+var createTaskHandler = function (event) {
+  event.preventDefault();
+  var taskNameInput = document.querySelector("input[name='task-name']").value;
+  var taskTypeInput = document.querySelector("select[name='task-type']").value;
 
-  // instead of click used for buttons, we will use submit used for forms. 
-  // the submit listener listens for 2 events within the form: (1) when a 
-  // user clicks a button element with a type attribut that has a value of "submit"
-  // like the button we currently have in the form (2) When a user presses Enter on their 
-  // keyboard
-  formEl.addEventListener("submit", createTaskHandler);
+  // create list item
+  var listItemEl = document.createElement("li");
+  listItemEl.className = "task-item";
 
+  // create div to hold task info and add to list item
+  var taskInfoEl = document.createElement("div");
+  taskInfoEl.className = "task-info";
 
+  // add HTML content to div
+  taskInfoEl.innerHTML = "<h3 class='task-name'>" + taskNameInput + "</h3><span class='task-type'>" + taskTypeInput + "</span>";
+  listItemEl.appendChild(taskInfoEl);
+
+  // add entire list item to list
+  tasksToDoEl.appendChild(listItemEl);
+};
+
+formEl.addEventListener("submit", createTaskHandler);
