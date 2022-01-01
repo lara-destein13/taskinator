@@ -65,16 +65,22 @@ var buttonEl = document.querySelector("#save-task");
 // go into the DOM and continue searching until finding the ul
 // with the id #tasks-to-do and assign it tasksToDoEl (the document object representation 
 // of the ul unordered list element)
-var tasksToDoEl = document.querySelecto("#tasks-to-do");
+var tasksToDoEl = document.querySelector("#tasks-to-do");
 
-
-var createTaskHandler = function() {
+// a function that creates a new task item, styles the new task item, adds the text,
+// and appends this element to the task list.
+var createTaskHandler = function(){
+    // create a DOM element object that is a list item and name it listItemEl
     var listItemEl = document.createElement("li");
+    // use the className property to dynamically style the list items with the task-item class
     listItemEl.className = "task-item";
+    // use the textContent property to set the text for the list items to "this is a new task"
     listItemEl.textContent = "This is a new task.";
+    // appends (adds something) the task list item <li> as a child to the task list <li>
     tasksToDoEl.appendChild(listItemEl);
   };
   
+  // on a button click, create a task. 
   buttonEl.addEventListener("click", createTaskHandler);
-}
+
 
