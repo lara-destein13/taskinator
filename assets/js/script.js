@@ -61,7 +61,12 @@
 // go into the DOM and continue searching until finding the button
 // with the id #save-task and assign it buttonEl (the document object representation 
 // of the button element)
-var buttonEl = document.querySelector("#save-task");
+// var buttonEl = document.querySelector("#save-task");
+
+// go into the DOM and continue searching until finding the form with the id task-form
+// and call it formEl. This is the document object representation of the form element
+var formEl = document.querySelector("#task-form");
+
 // go into the DOM and continue searching until finding the ul
 // with the id #tasks-to-do and assign it tasksToDoEl (the document object representation 
 // of the ul unordered list element)
@@ -69,7 +74,10 @@ var tasksToDoEl = document.querySelector("#tasks-to-do");
 
 // a function that creates a new task item, styles the new task item, adds the text,
 // and appends this element to the task list.
-var createTaskHandler = function(){
+var createTaskHandler = function(event){
+    // method that instructs the browser to not carry out its default behavior.
+    // we don't want our page to refresh everytime the form submit button is pressed
+    event.preventDefault();
     // create a DOM element object that is a list item and name it listItemEl
     var listItemEl = document.createElement("li");
     // use the className property to dynamically style the list items with the task-item class
@@ -81,6 +89,13 @@ var createTaskHandler = function(){
   };
   
   // on a button click, create a task. 
-  buttonEl.addEventListener("click", createTaskHandler);
+  // buttonEl.addEventListener("click", createTaskHandler);
+
+  // instead of click used for buttons, we will use submit used for forms. 
+  // the submit listener listens for 2 events within the form: (1) when a 
+  // user clicks a button element with a type attribut that has a value of "submit"
+  // like the button we currently have in the form (2) When a user presses Enter on their 
+  // keyboard
+  formEl.addEventListener("submit", createTaskHandler);
 
 
