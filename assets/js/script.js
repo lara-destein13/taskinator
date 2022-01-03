@@ -136,6 +136,18 @@ var taskFormHandler = function(event){
     var taskNameInput = document.querySelector("input[name='task-name']").value;
     var taskTypeInput = document.querySelector("select[name='task-type']").value;
 
+    // check if input values are empty strings. if there is no taskName or taskType,
+    // then alert user to fill out form.
+    if (!taskNameInput || !taskTypeInput) {
+      alert("You need to fill out the task form!");
+      // the function stops when it reads return false. taskFormHandler will work as intended 
+      // as long as input is inserted. 
+      return false;
+    }
+    
+    // reset is a method that only works for forms. Will clear the contents of the form
+    formEl.reset();
+
     // package up data as an object using name and title properties
     var taskDataObj = {
       name: taskNameInput,
