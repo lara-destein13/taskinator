@@ -112,33 +112,6 @@
 //   formEl.addEventListener("submit", createTaskHandler);
 
 
-// // var formEl = document.querySelector("#task-form");
-// // var tasksToDoEl = document.querySelector("#tasks-to-do");
-
-// // var createTaskHandler = function (event) {
-// //   event.preventDefault();
-// //   var taskNameInput = document.querySelector("input[name='task-name']").value;
-// //   var taskTypeInput = document.querySelector("select[name='task-type']").value;
-
-// //   // create list item
-// //   var listItemEl = document.createElement("li");
-// //   listItemEl.className = "task-item";
-
-// //   // create div to hold task info and add to list item
-// //   var taskInfoEl = document.createElement("div");
-// //   taskInfoEl.className = "task-info";
-
-// //   // add HTML content to div
-// //   taskInfoEl.innerHTML = "<h3 class='task-name'>" + taskNameInput + "</h3><span class='task-type'>" + taskTypeInput + "</span>";
-// //   listItemEl.appendChild(taskInfoEl);
-
-// //   // add entire list item to list
-// //   tasksToDoEl.appendChild(listItemEl);
-// // };
-
-// // formEl.addEventListener("submit", createTaskHandler);
-
-
 // MOST RECENT CODE //**********
 
 // go into the DOM and continue searching until finding the form with the id task-form
@@ -152,37 +125,52 @@ var tasksToDoEl = document.querySelector("#tasks-to-do");
 
 // a function that creates a new task item, styles the new task item, adds the text,
 // and appends this element to the task list.
-var createTaskHandler = function(event){
+var taskFormHandler = function(event){
     // method that instructs the browser to not carry out its default behavior.
     // we don't want our page to refresh everytime the form submit button is pressed
     event.preventDefault();
 
     // we use square brackets [ ] in a selector to select and HTML elemennt by one
     // of its attributes. here, we're selecting the <input> element on the page that has a 
-    // name attribute set to a value of "task-name." we add the .value property to the end     // to retirve the user input
+    // name attribute set to a value of "task-name." we add the .value property to the end
     var taskNameInput = document.querySelector("input[name='task-name']").value;
     var taskTypeInput = document.querySelector("select[name='task-type']").value;
 
+    // package up data as an object using name and title properties
+    var taskDataObj = {
+      name: taskNameInput,
+      type: taskTypeInput
+    };
+
+    // send it as an argument to createTaskEl
+    createTaskEl(taskDataObj);
+};
+
+
+
+// create a function called createTaskEl to hold the code that creates a new task HTML element.
+// we are setting up the function to accept an object as an argument.
+var createTaskEl = function(taskDataObj) {
     // create list item DOM element object and call it listItemEl
     var listItemEl = document.createElement("li");
     // use the className property to dynamically style the list items with the task-item class
     listItemEl.className = "task-item";
 
-    // create div DOM element object to hold task info and add to list item 
+     // create div DOM element object to hold task info and add to list item 
     // and call it taskInfoEl
     var taskInfoEl = document.createElement("div");
     // give it a class name
     taskInfoEl.className = "task-info";
     // add html content to our new div. 
-    taskInfoEl.innerHTML = "<h3 class='task-name'>" + taskNameInput + "</h3><span class='task-type'" + taskTypeInput + "</span>";
-
+    taskInfoEl.innerHTML = "<h3 class='task-name'>" + taskDataObj.name + "</h3><span class='task-type'" + taskDataObj.type + "</span>";
     // append entire div to the list
     listItemEl.appendChild(taskInfoEl);
 
     // attaches our div to our task list. append entire <li> to the
     // parent <ul>(ie: tasksToDoEl)
     tasksToDoEl.appendChild(listItemEl);
+
 };
 
+    formEl.addEventListener("submit", taskFormHandler);
 
-    formEl.addEventListener("submit", createTaskHandler);
